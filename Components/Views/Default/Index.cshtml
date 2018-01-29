@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<h3> @ViewBag.ImgURL </h3>
+@using (Html.BeginForm("Index", "Default", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>Genişlik:</p>
+    <input type="number" name="width" />
+    <p>Yükseklik:</p>
+    <input type="number" name="height" />    
+
+    <input type="file" name="file" />
+
+    <input type="submit" accept=".png" value="Gönder">
+}
