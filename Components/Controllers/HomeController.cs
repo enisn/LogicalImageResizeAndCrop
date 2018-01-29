@@ -10,7 +10,7 @@ namespace Components.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Default");
         }
 
         public ActionResult About()
