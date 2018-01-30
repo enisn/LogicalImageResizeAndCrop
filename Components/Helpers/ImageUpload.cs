@@ -9,7 +9,7 @@ using System.Web;
 
 namespace Components.Helpers
 {
-    public class ImageUpload
+    public static class ImageUpload
     {
         #region Configuration
         //Tam boyutlu resimlerin yolu
@@ -21,7 +21,7 @@ namespace Components.Helpers
 
         public static string MapPath { get => HttpContext.Current.Server.MapPath(PATH); }
         public static string MapPatht { get => HttpContext.Current.Server.MapPath(PATHt); }
-        
+
         public enum CropPosition
         {
             None,
@@ -57,7 +57,7 @@ namespace Components.Helpers
                 pathSum += item + "/";
             }
         }
-        
+
         private static Bitmap ImageResizeByWidth(System.Drawing.Image _image, int width)
         {
             float ratio = _image.Height / (float)_image.Width;
@@ -109,25 +109,18 @@ namespace Components.Helpers
 
             Bitmap _sourceBmp;
 
-
-            if (height > width)
+            //Optimised for ratio
+            // Compared image ratio and requested ratio
+            if ((_image.Height / (float)_image.Width) < (height / (float)width))
                 _sourceBmp = ImageResizeByHeight(_image, height);
-            else if (width > height)
-                _sourceBmp = ImageResizeByWidth(_image, width);
             else
-            {
-                if (_image.Height > _image.Width)
-                    _sourceBmp = ImageResizeByWidth(_image, height);
-                else
-                    _sourceBmp = ImageResizeByHeight(_image, width);
-
-            }
+                _sourceBmp = ImageResizeByWidth(_image, width);
 
 
             switch (_cPos)
             {
                 case CropPosition.Center:
-                    cropRect = new Rectangle(new Point((_sourceBmp.Width / 2) - (width / 2), (_sourceBmp.Height / 2) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
+                    cropRect = new Rectangle(new Point((int)((_sourceBmp.Width / 2f) - (width / 2f)), (int)((_sourceBmp.Height / 2f) - (height / 2f))), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
                     break;
                 case CropPosition.Left:
                     cropRect = new Rectangle(new Point(0, (_sourceBmp.Height / 2) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
@@ -160,7 +153,7 @@ namespace Components.Helpers
                 bmp.Dispose();
             }
         }
-        
+
         #region Methods will be used
 
         public static Tuple<string, string> SaveImageWithThumbnail(HttpPostedFileBase file, int width, int height, int widthT, int heightT, bool pathWithWebsite = false)
@@ -205,7 +198,7 @@ namespace Components.Helpers
         }
 
         #endregion
-        
+
         #region HelperMethods
         private static ImageCodecInfo GetEncoder(ImageFormat format)
         {
@@ -258,7 +251,7 @@ namespace Components.Helpers
             else if (value.CompareTo(max) > 0) return max;
             else return value;
         }
-        
-        
+
+
     }
 }

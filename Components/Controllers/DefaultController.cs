@@ -19,7 +19,6 @@ namespace Components.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file,int width, int height)
         {
-
             var imageUrl  = ImageUpload.SaveImage(file, width, height);
             return Redirect(imageUrl);
         }
