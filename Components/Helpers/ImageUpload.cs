@@ -123,10 +123,10 @@ namespace Components.Helpers
                     cropRect = new Rectangle(new Point((int)((_sourceBmp.Width / 2f) - (width / 2f)), (int)((_sourceBmp.Height / 2f) - (height / 2f))), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
                     break;
                 case CropPosition.Left:
-                    cropRect = new Rectangle(new Point(0, (_sourceBmp.Height / 2) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
+                    cropRect = new Rectangle(new Point(0, (int)(_sourceBmp.Height / 2f) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
                     break;
                 case CropPosition.Right:
-                    cropRect = new Rectangle(new Point(_sourceBmp.Height - width, (_sourceBmp.Height / 2) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
+                    cropRect = new Rectangle(new Point(_sourceBmp.Height - width, (int)(_sourceBmp.Height / 2f) - (height / 2)), new Size(width.Clamp(0, _sourceBmp.Width), height.Clamp(0, _sourceBmp.Height)));
                     break;
             }
             Bitmap _target = new Bitmap(cropRect.Width, cropRect.Height);
