@@ -16,7 +16,7 @@ namespace Components.Helpers
         public const string PATH = "/Content/images/Upload/";
         //Thumbnails yolu
         public const string PATHt = "/Content/images/Thumbnails/";
-        public const string WebSite = "http://api.conetwork.info";
+        public const string WebSite = "http://www.sample.com";
         #endregion
 
         public static string MapPath { get => HttpContext.Current.Server.MapPath(PATH); }
